@@ -8,13 +8,15 @@ using namespace std;
 
 int main() {
 	//freopen("input.txt", "rt", stdin); // input.txt 파일 읽기
-	int n, m, i, lt = 1, rt = 0, mid, res, cnt = 0, tmp = 0;
+	int n, m, i, lt = 1, rt = 0, mid, res, cnt = 0, tmp = 0, max = -2147000000;
 	scanf("%d %d", &n, &m);
 	vector<int> a(n);
 	for (i = 0; i < n; i++)
 	{
 		scanf("%d", &a[i]);
 		rt += a[i];	// 최대 메모리 값은 다 더한거니 최댓값 설정
+		if (max < a[i])
+			max = a[i];
 	}
 
 	while (lt <= rt) // 교차하는 순간 이분검색 끝
@@ -34,7 +36,7 @@ int main() {
 				tmp += a[i]; // 아닐경우 DVD에 메모리 추가
 		}
 
-		if (cnt <= m) // DVD 개수제한 안에 들면 메모리 넣어주고 아래에 있는 메모리사이즈 다시 체크
+		if (mid >= max && cnt <= m) // DVD메모리는 최소 뮤직비디오 용량보다 크거나같아야한다 && DVD 개수제한 안에 들면 메모리 넣어주고 아래에 있는 메모리사이즈 다시 체크
 		{
 			res = mid;
 			rt = mid - 1;
